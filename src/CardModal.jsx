@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
  
  
 
@@ -19,7 +19,7 @@ export default function CardModal({ isOpen, setIsOpen, title,children  }) {
           <div className="flex min-h-full items-center justify-center p-4 ">
             <DialogPanel
               transition
-              className="max-w-md rounded-xl bg-slate-400 ml-[900px] mb-44 h-48 w-96 bg-white/5 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+              className="max-w-md rounded-xl bg-gray-400 ml-[900px] w-96 p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
             >
               <DialogTitle as="h3" className="text-base/7 font-medium text-white">
                 {title}
