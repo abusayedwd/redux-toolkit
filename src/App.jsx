@@ -1,18 +1,26 @@
-import { useState } from 'react'
 import './index.css'
 import Count from './Count'
 import State from './State'
 import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment } from './features/counters/countersSlice'
+import { decrement, increment } from './features/counters/countersSlice' 
+ 
+import Tabs from './Tabs'
+import CardModal from './CardModal'
+import { useState } from 'react'
+ 
+ 
 
  
 function App() {
+  
+const [isOpen, setIsOpen] = useState(false)
 
-const counters = useSelector( (state) => (state.counter))
+const counters = useSelector( (state) => (state.counters))
 const disPatch = useDispatch()
 
    
-  const totalCount = counters.reduce((sum, current) => sum + current.value , 0) 
+  const totalCount = counters.reduce((sum, current) => sum + current.value , 0)
+   
 
  
 
@@ -48,17 +56,23 @@ const disPatch = useDispatch()
   return (
     <>
       <div>
-        <h1 className=' bg-slate-500 w-60 text-center mt-10 mx-auto text-2xl'>React simple app</h1>
-        <div>
+        <h1 className=' bg-slate-500 w-60 text-center mt-10 mx-auto text-2xl'>Redux Toolkit..</h1>
+        <div className=' text-right mr-32'> 
+        <button onClick={() => setIsOpen(!isOpen)} className=' bg-blue-600 text-white font-semibold py-2 px-3 rounded text-right'>Add Blog</button>
+         
+        </div>
+        <CardModal isOpen={isOpen} setIsOpen={setIsOpen}></CardModal>
+        <State totalCount={totalCount} /> 
+        <div className='flex items-center w-[450px] mx-auto gap-4'>
           {
             counters.map((counter) => <Count count={counter.value} 
              key={counter.id}
               onDecrement={()=> handleDecrement(counter.id)}
                onIncrement={() => handaleIncrement(counter.id)} />)
           }
-
-          <State totalCount={totalCount} />
-        </div>
+ 
+        </div> 
+      <Tabs /> 
       </div>
     </>
   )
