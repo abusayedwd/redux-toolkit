@@ -7,6 +7,7 @@ import { decrement, increment } from './features/counters/countersSlice'
 import Tabs from './Tabs'
 import CardModal from './CardModal'
 import { useState } from 'react'
+import AddblogModal from './AddblogModal'
  
  
 
@@ -61,7 +62,12 @@ const disPatch = useDispatch()
         <button onClick={() => setIsOpen(!isOpen)} className=' bg-blue-600 text-white font-semibold py-2 px-3 rounded text-right'>Add Blog</button>
          
         </div>
-        <CardModal isOpen={isOpen} setIsOpen={setIsOpen}></CardModal>
+        {/* <CardModal isOpen={isOpen} setIsOpen={setIsOpen} title = "Add blog post">
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos ipsa laborum non, temporibus recusandae, hic sunt cumque vel odit labore impedit? Odit vitae beatae nam suscipit nisi. Harum, vitae rem?</p>
+        </CardModal> */}
+        <AddblogModal isOpen={isOpen} setIsOpen={setIsOpen}></AddblogModal>
+
+        
         <State totalCount={totalCount} /> 
         <div className='flex items-center w-[450px] mx-auto gap-4'>
           {
