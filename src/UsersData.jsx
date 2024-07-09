@@ -9,7 +9,7 @@ const UsersData = () => {
     
     
     if(isLoading) return <div>Loading........</div>
-console.log("users data >>>>>>>",data);
+// console.log("users data >>>>>>>",data);
 
     return (
         <div>

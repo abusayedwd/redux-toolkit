@@ -6,7 +6,7 @@ import { useGetPhotosQuery } from './features/apiGet/getPhotosApi';
 
 const Photos = () => {
      const { data,isLoading,isError} = useGetPhotosQuery();
-     console.log(".........data",data);
+    //  console.log(".........data",data);
 
      if(isLoading) return <div>Loading........</div>
      if(isError) return <div>Error data........</div>

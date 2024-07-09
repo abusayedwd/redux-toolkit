@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { decrement, increment } from './features/counters/countersSlice' 
  
 import Tabs from './Tabs'
-import CardModal from './CardModal'
+ 
 import { useState } from 'react'
 import AddblogModal from './AddblogModal'
+import BlogCard from './BlogCard'
+import PostMethod from './PostMethod'
  
  
 
@@ -60,7 +62,7 @@ const disPatch = useDispatch()
         <h1 className=' bg-slate-500 w-60 text-center mt-10 mx-auto text-2xl'>Redux Toolkit..</h1>
         <div className=' text-right mr-32'> 
         <button onClick={() => setIsOpen(!isOpen)} className=' bg-blue-600 text-white font-semibold py-2 px-3 rounded text-right'>Add Blog</button>
-         
+        
         </div>
         {/* <CardModal isOpen={isOpen} setIsOpen={setIsOpen} title = "Add blog post">
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos ipsa laborum non, temporibus recusandae, hic sunt cumque vel odit labore impedit? Odit vitae beatae nam suscipit nisi. Harum, vitae rem?</p>
@@ -78,6 +80,10 @@ const disPatch = useDispatch()
           }
  
         </div> 
+        <BlogCard></BlogCard>
+        <div>
+          <PostMethod></PostMethod>
+        </div>
       <Tabs /> 
       </div>
     </>

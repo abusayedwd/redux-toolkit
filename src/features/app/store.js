@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { baseApi } from './baseApi'
+import addBlogSlice from '../addBlogSlice/addBlogSlice'
 import countersSlice from '../counters/countersSlice'
 
 // import loginSlice from './apiSlices/authentication/loginSlice'
@@ -8,6 +9,7 @@ import countersSlice from '../counters/countersSlice'
 export const store = configureStore({
   reducer: {
     counters : countersSlice,
+    blogsSlice: addBlogSlice,
     [baseApi.reducerPath]:baseApi.reducer,
 
   },

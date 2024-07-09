@@ -3,22 +3,27 @@ import CardModal from "./CardModal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./index.css";
+import { useDispatch } from "react-redux";
+import { addBlog } from "./features/addBlogSlice/addBlogSlice";
  
 
 const AddblogModal = ({ isOpen, setIsOpen }) => {
     const { register, handleSubmit, reset } = useForm();
-    const [dataa, setDataa] = useState()
+    const dispatch = useDispatch()
+     
     const onSubmit = (data) => {
-        reset();
+         
         setIsOpen(false)
-        setDataa(data)
-        
+      dispatch(addBlog(data))
+      
         
     };
-    const onCencel = () => {
-        
-        reset()
+    const onCencel = () => { 
+      setIsOpen(false)
     };
+    const resectForm = () => {
+      reset();
+    }
     
     
     
@@ -39,10 +44,12 @@ const AddblogModal = ({ isOpen, setIsOpen }) => {
         <option value="">Select...</option>
         <option value="A">Option A</option>
         <option value="B">Option B</option>
+        <option value="B">Option C</option>
       </select>
       <textarea  required {...register("description")} placeholder="description" />
+      <button className="mb-5 py-1 px-2 bg-red-400 text-slate-50 rounded-lg" onClick={resectForm}>Reset..</button>
       
-      <button onClick={onCencel} className=" text-white font-medium bg-red-500 py-2 rounded-md w-full">Cencel</button>
+      <button onClick={onCencel} className="text-white font-medium bg-red-500 py-2 rounded-md w-full">Cencel</button>
       <input type="submit" />
     </form>
 
