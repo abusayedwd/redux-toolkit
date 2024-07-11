@@ -5,14 +5,11 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api' }), // Adjust the base URL to match your API
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: () => '/posts',
-    }),
-    getTodos: builder. query({
-      query: () => '/todos'
-    }),
-
-    getPost: builder.query({
-      query: (id) => `posts/${id}`,
+      query: () => '/posts', 
+    }), 
+    
+    getPostById: builder.query({
+      query: (id) => `/posts/${id}`,
     }),
     addPost: builder.mutation({
       query: (newPost) => ({
@@ -30,11 +27,11 @@ export const apiSlice = createApi({
     }),
     deletePost: builder.mutation({
       query: (id) => ({
-        url: `posts/${id}`,
+        url: `/posts/${id}`,
         method: 'DELETE',
       }),
     }),
   }),
 });
 
-export const { useGetPostsQuery,useGetTodosQuery, useGetPostQuery, useAddPostMutation, useUpdatePostMutation, useDeletePostMutation } = apiSlice;
+export const { useGetPostsQuery , useGetPostByIdQuery, useAddPostMutation, useUpdatePostMutation, useDeletePostMutation } = apiSlice;

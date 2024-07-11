@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { useGetPostsQuery, useAddPostMutation, useUpdatePostMutation, useDeletePostMutation, useGetTodosQuery } from './features/counters/apiSlice';
-import { useGetPostQuery } from './features/apiGet/postApi';
+import { useAddPostMutation, useGetPostsQuery, } from './features/counters/apiSlice';
+
 import PostData from './PostData';
+ 
 
 const Posts = () => {
-  const { data: posts, error, isLoading } = useGetPostsQuery();
+
+  const { data: posts, isLoading, error } = useGetPostsQuery();
+  //  const [deletePost] = useDeletePostMutation()
   // const [selectedPostId, setSelectedPostId] = useState(null);
   // const { data: selectedPost } = useGetPostQuery(selectedPostId, { skip: !selectedPostId });
   const [addPost] = useAddPostMutation();
- 
+
+
   
-  const [deletePost] = useDeletePostMutation();
-  const { data: todos, } = useGetTodosQuery();
- 
 
   const [newPost, setNewPost] = useState({ title: '', body: '' });
   // const [editPost, setEditPost] = useState({ id: '', title: '', body: '' });
@@ -30,15 +31,6 @@ const Posts = () => {
     }
   };
 
- 
-
-  const handleDeletePost = async (id) => {
-    try {
-      await deletePost(id).unwrap();
-    } catch (err) {
-      console.error('Failed to delete post: ', err);
-    }
-  };
 
   return (
     <div>
@@ -62,19 +54,19 @@ const Posts = () => {
         />
         <button className='bg-green-400 font-serif px-2 py-1 rounded-lg' onClick={handleAddPost}>
           Add Post
-          </button>
-      </div> 
+        </button>
+      </div>
 
-  
-        <div className='grid grid-cols-4 p-2 gap-4 pb-12'>
-          {posts.map((post) => (
-            <PostData key={post.id} post ={post}> 
-            </PostData>
-          ))}
-          {
 
-          }
-        </div> 
+      <div className='grid grid-cols-4 p-2 gap-4 pb-12'>
+        {posts?.map((post) => (
+          // console.log(post),
+          <PostData key={post.id} post={post}>
+          </PostData>
+
+        ))}
+    
+      </div>
     </div>
   );
 };
