@@ -1,68 +1,87 @@
 import React, { useState } from 'react';
-import { useAddPostMutation, useGetPostsQuery, } from './features/counters/apiSlice';
+import { useAddBlogMutation, useGetBlogsQuery } from './features/counters/apiSlice';
 
-import PostData from './PostData';
+import BlogData from './BlogData';
+import toast from 'react-hot-toast';
+import { useForm } from "react-hook-form";
  
 
 const Posts = () => {
+const { register, handleSubmit, reset } = useForm();
 
-  const { data: posts, isLoading, error } = useGetPostsQuery();
+const [image, setIamge] = useState(null)
+ 
+  const { data: blogs, isLoading, error } = useGetBlogsQuery();
   //  const [deletePost] = useDeletePostMutation()
   // const [selectedPostId, setSelectedPostId] = useState(null);
   // const { data: selectedPost } = useGetPostQuery(selectedPostId, { skip: !selectedPostId });
-  const [addPost] = useAddPostMutation();
+  const [addPost] = useAddBlogMutation();
 
 
   
 
-  const [newPost, setNewPost] = useState({ title: '', body: '' });
-  // const [editPost, setEditPost] = useState({ id: '', title: '', body: '' });
-  // console.log(newPost);
+ const handleChangeImage = (e) => {
+  const file = e.target.files[0];
+  console.log(file);
 
+  setIamge(file)
+
+ }
+ 
+ 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
+ 
+  const onSubmit = async (data) => { 
+    const image = data?.profile[0].name;
+     console.log(image)
+    
 
-  const handleAddPost = async () => {
+    
+    
+
     try {
-      await addPost(newPost).unwrap();
-      setNewPost({ title: '', body: '' });
-    } catch (err) {
-      console.error('Failed to add post: ', err);
-    }
-  };
+      const formData = new FormData();
+
+    formData.append("title", data?.title);
+    formData.append("body", data?.body);
+    formData.append("image", image);
+    console.log(formData);
+          await addPost(formData).unwrap();
+          
+          toast.success('add post success')
+        } catch (err) {
+          console.error('Failed to add post: ', err);
+        }
+};
 
 
   return (
     <div>
-      <h1>Posts</h1>
+      <h1>Blog</h1>
       <div className='w-[30%] mx-auto'>
         <h2 className='text-2xl text-blue-500 font-medium my-4'>Add New Post</h2>
-        <input
-          className='bg-slate-300 border-sky-600'
-          type="text"
-          name='title'
-          value={newPost.title}
-          onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-          placeholder="Title"
-        />
-        <textarea
-          className='bg-slate-300 border-sky-600'
-          value={newPost.body}
-          name='body'
-          onChange={(e) => setNewPost({ ...newPost, body: e.target.value })}
-          placeholder="body"
-        />
-        <button className='bg-green-400 font-serif px-2 py-1 rounded-lg' onClick={handleAddPost}>
-          Add Post
-        </button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+       
+      <input type="file" 
+      name='profile'
+      required {...register("profile")} 
+      onChange={handleChangeImage} 
+      />
+      <input type="text" required {...register("title")} placeholder="title" />
+      <textarea  required {...register("body")} placeholder="body" />
+       
+       <input type="submit" />
+    </form>
+     
       </div>
 
 
       <div className='grid grid-cols-4 p-2 gap-4 pb-12'>
-        {posts?.map((post) => (
+        {blogs?.map((blog) => (
           // console.log(post),
-          <PostData key={post.id} post={post}>
-          </PostData>
+          <BlogData key={blog.id} blog={blog}>
+          </BlogData>
 
         ))}
     

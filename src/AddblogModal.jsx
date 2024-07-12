@@ -24,9 +24,7 @@ const AddblogModal = ({ isOpen, setIsOpen }) => {
     const resectForm = () => {
       reset();
     }
-    
-    
-    
+     
 
   return (
     <div>

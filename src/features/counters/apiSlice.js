@@ -2,36 +2,41 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api' }), // Adjust the base URL to match your API
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api' }),// Adjust the base URL to match your API
+   tagTypes: ["Blogs"],
   endpoints: (builder) => ({
-    getPosts: builder.query({
-      query: () => '/posts', 
+    getBlogs: builder.query({
+      query: () => '/blogs', 
+      providesTags: ["Blogs"]
     }), 
     
-    getPostById: builder.query({
-      query: (id) => `/posts/${id}`,
+    getBlogById: builder.query({
+      query: (id) => `/blogs/${id}`,
     }),
-    addPost: builder.mutation({
+    addBlog: builder.mutation({
       query: (newPost) => ({
-        url: '/posts',
+        url: '/blogs',
         method: 'POST',
         body: newPost,
       }),
+      invalidatesTags:["Blogs"]
     }),
-    updatePost: builder.mutation({
+    updateBlog: builder.mutation({
       query: ({ id, ...patch }) => ({
-        url: `/posts/${id}`,
+        url: `/blogs/${id}`,
         method: 'PATCH',
         body: patch,
       }),
+      invalidatesTags:["Blogs"]
     }),
-    deletePost: builder.mutation({
+    deleteBlog: builder.mutation({
       query: (id) => ({
-        url: `/posts/${id}`,
+        url: `/blogs/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags:["Blogs"]
     }),
   }),
 });
 
-export const { useGetPostsQuery , useGetPostByIdQuery, useAddPostMutation, useUpdatePostMutation, useDeletePostMutation } = apiSlice;
+export const { useGetBlogsQuery , useGetBlogByIdQuery, useAddBlogMutation, useUpdateBlogMutation, useDeleteBlogMutation } = apiSlice;

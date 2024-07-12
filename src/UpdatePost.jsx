@@ -1,13 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetPostByIdQuery, useUpdatePostMutation} from "./features/counters/apiSlice";
+import { useGetBlogByIdQuery,  useUpdateBlogMutation,} from "./features/counters/apiSlice";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
  
 const UpdatePost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: post, isLoading, error } = useGetPostByIdQuery(id);
-  const [updatePost] = useUpdatePostMutation();
+  const { data: post, isLoading, error } = useGetBlogByIdQuery(id);
+  const [updatePost] = useUpdateBlogMutation();
   const [updatedPost, setUpdatedPost] = useState({ title: '', body: '' });
   // console.log(updatedPost);
 
@@ -20,7 +21,7 @@ const UpdatePost = () => {
   const handleUpdate = async () => {
     try {
       await updatePost({ id, ...updatedPost }).unwrap();
-      alert('Post updated successfully');
+      toast.success('Post updated successfully');
       navigate('/');
     } catch (err) {
       console.error('Failed to update the post: ', err);
@@ -34,6 +35,7 @@ const UpdatePost = () => {
     return (
         <div>
                <div className='w-[30%] mx-auto'>
+                <Toaster></Toaster>
         <h2 className='text-2xl text-blue-500 font-medium my-4'>Edit Post</h2>
         <input
           className='bg-slate-300 border-sky-600'
