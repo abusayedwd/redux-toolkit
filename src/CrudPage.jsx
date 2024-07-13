@@ -4,17 +4,17 @@ import { useAddBlogMutation, useGetBlogsQuery } from './features/counters/apiSli
 import BlogData from './BlogData';
 import toast from 'react-hot-toast';
 import { useForm } from "react-hook-form";
+import "./index.css";
  
 
-const Posts = () => {
+const CrudPage = () => {
 const { register, handleSubmit, reset } = useForm();
 
 const [image, setIamge] = useState(null)
  
+ 
   const { data: blogs, isLoading, error } = useGetBlogsQuery();
-  //  const [deletePost] = useDeletePostMutation()
-  // const [selectedPostId, setSelectedPostId] = useState(null);
-  // const { data: selectedPost } = useGetPostQuery(selectedPostId, { skip: !selectedPostId });
+ 
   const [addPost] = useAddBlogMutation();
 
 
@@ -22,7 +22,7 @@ const [image, setIamge] = useState(null)
 
  const handleChangeImage = (e) => {
   const file = e.target.files[0];
-  console.log(file);
+  // console.log(file);
 
   setIamge(file)
 
@@ -33,23 +33,20 @@ const [image, setIamge] = useState(null)
   if (error) return <div>Error: {error.message}</div>;
  
   const onSubmit = async (data) => { 
-    const image = data?.profile[0].name;
-     console.log(image)
-    
-
-    
-    
-
-    try {
-      const formData = new FormData();
+    const formData = new FormData();
 
     formData.append("title", data?.title);
     formData.append("body", data?.body);
     formData.append("image", image);
     console.log(formData);
+    
+
+    try { 
+
           await addPost(formData).unwrap();
           
           toast.success('add post success')
+          reset()
         } catch (err) {
           console.error('Failed to add post: ', err);
         }
@@ -64,8 +61,8 @@ const [image, setIamge] = useState(null)
         <form onSubmit={handleSubmit(onSubmit)}>
        
       <input type="file" 
-      name='profile'
-      required {...register("profile")} 
+      name='image'
+      required {...register("image")} 
       onChange={handleChangeImage} 
       />
       <input type="text" required {...register("title")} placeholder="title" />
@@ -79,7 +76,7 @@ const [image, setIamge] = useState(null)
 
       <div className='grid grid-cols-4 p-2 gap-4 pb-12'>
         {blogs?.map((blog) => (
-          // console.log(post),
+       
           <BlogData key={blog.id} blog={blog}>
           </BlogData>
 
@@ -90,4 +87,4 @@ const [image, setIamge] = useState(null)
   );
 };
 
-export default Posts;
+export default CrudPage;

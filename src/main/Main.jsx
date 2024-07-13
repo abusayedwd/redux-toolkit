@@ -1,6 +1,6 @@
 import React from 'react';
 import CrudPage from '../CrudPage'
-import UpdatePost from '../UpdatePost';
+ 
 import Navbar from '../Navbar';
 
 const Main = () => {
