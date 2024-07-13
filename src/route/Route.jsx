@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from '../main/Main'
-import UpdatePost from "../UpdatePost";
+import UpdateBlog from "../UpdateBlog";
 
 
 export const router = createBrowserRouter([
@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "updatepost/:id",
-        element: <UpdatePost/>,
+        element: <UpdateBlog/>,
       },
     
 ])

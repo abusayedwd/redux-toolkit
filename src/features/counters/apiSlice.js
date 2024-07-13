@@ -13,6 +13,7 @@ export const apiSlice = createApi({
     getBlogById: builder.query({
       query: (id) => `/blogs/${id}`,
     }),
+
     addBlog: builder.mutation({
       query: (newPost) => ({
         url: '/blogs',
@@ -22,10 +23,11 @@ export const apiSlice = createApi({
       invalidatesTags:["Blogs"]
     }),
     updateBlog: builder.mutation({
-      query: ({ id, ...patch }) => ({
+      query: ( {id, formData} ) => ({ 
         url: `/blogs/${id}`,
         method: 'PATCH',
-        body: patch,
+        body:  formData,
+      
       }),
       invalidatesTags:["Blogs"]
     }),
